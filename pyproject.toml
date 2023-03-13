@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "buildingai"
+version = "0.1.0"
+description = ""
+authors = ["utikpuhlik <utikpuhlik@win.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^1.5.3"
+numpy = "^1.24.2"
+jupyter = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
