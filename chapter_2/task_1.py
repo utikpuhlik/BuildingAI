@@ -1,34 +1,44 @@
-import math
-import random             	# just for generating random mountains
-
-# generate random mountains
-w = [random.random()/3, random.random()/3, random.random()/3]
-h = [1.+math.sin(1+x/6.)*w[0]+math.sin(-.3+x/9.)*w[1]+math.sin(-.2+x/30.)*w[2] for x in range(100)]
-h[0] = 0.0; h[99] = 0.0
-
-def climb(x, h):
-    # keep climbing until we've found a summit
-    summit = False        # stop unless there's a way up
-
-    # edit here
-    while not summit:
-        summit = True         # stop unless there's a way up
-        if h[x + 1] > h[x]:
-            x = x + 1         # right is higher, go there
-            summit = False    # and keep going
-        elif h[x - 1] > h[x]:
-            x -= 1
-            summit = False
-    return x
+import numpy as np
 
 
-def main(h):
+def generate(p1):  # change this so that it generates 10000 random zeros and ones
+    # where the probability of one is p1
+    seq = np.random.choice([0, 1], p=[1 - p1, p1], size=10000)
+    return seq
 
-    # start at a random place
-    x0 = random.randint(1, 98)
-    x = climb(x0, h)
 
-    print("Venla started at %d and got to %d" % (x0, x))
-    return x0, x
+def count(seq):
+    count = 0
+    ones_count = 0
+    for bit in seq:
+        if bit == 1:
+            ones_count += 1
+            if ones_count >= 5:
+                count += 1
+        else:
+            ones_count = 0
+    return count
 
-main(h)
+
+def main(p1):
+    seq = generate(p1)
+    return count(seq)
+
+
+print(main(2 / 3))
+
+
+def count11(seq):
+    count = 0
+    ones_count = 0
+    for bit in seq:
+        if bit == 1:
+            ones_count += 1
+            if ones_count >= 2:
+                count += 1
+        else:
+            ones_count = 0
+    return count
+
+
+print(count11([0, 0, 1, 1, 1, 0]))  # this should print 2
